@@ -1,0 +1,122 @@
+/* Custom styles for the API YAML Generator */
+
+.api-section {
+    border-left: 4px solid var(--bs-primary);
+}
+
+.api-section:hover {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transform: translateY(-1px);
+    transition: all 0.15s ease-in-out;
+}
+
+.header-item, .extractor-item {
+    background-color: var(--bs-gray-100);
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+[data-bs-theme="dark"] .header-item, 
+[data-bs-theme="dark"] .extractor-item {
+    background-color: var(--bs-gray-800);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid var(--bs-border-color);
+}
+
+.card-header {
+    background-color: var(--bs-light);
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .card-header {
+    background-color: var(--bs-dark);
+}
+
+.btn-sm {
+    font-size: 0.875rem;
+}
+
+.alert ul {
+    padding-left: 1.25rem;
+}
+
+.form-text {
+    font-size: 0.875rem;
+    color: var(--bs-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .api-section .row .col-md-2,
+    .header-item .col-md-2,
+    .extractor-item .col-md-2 {
+        margin-top: 0.5rem;
+    }
+    
+    .d-md-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .d-md-flex .btn {
+        width: 100%;
+    }
+}
+
+/* Loading animation */
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Form validation styles */
+.form-control:invalid {
+    border-color: var(--bs-danger);
+}
+
+.form-control:valid {
+    border-color: var(--bs-success);
+}
+
+/* Smooth scrolling for alerts */
+.alert {
+    scroll-margin-top: 2rem;
+}
+
+/* API section numbering */
+.api-number {
+    font-weight: bold;
+    color: var(--bs-primary);
+}
+
+/* Better spacing for nested sections */
+.headers-container:empty::before,
+.extractors-container:empty::before {
+    content: "No items added yet. Click 'Add' button to get started.";
+    color: var(--bs-text-muted);
+    font-style: italic;
+    display: block;
+    padding: 1rem;
+    text-align: center;
+    background-color: var(--bs-light);
+    border-radius: 0.375rem;
+    border: 2px dashed var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .headers-container:empty::before,
+[data-bs-theme="dark"] .extractors-container:empty::before {
+    background-color: var(--bs-dark);
+}
