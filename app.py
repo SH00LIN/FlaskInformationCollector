@@ -7,7 +7,7 @@ import json
 import re
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.NOTSET)
 
 # Create Flask app
 app = Flask(__name__)
