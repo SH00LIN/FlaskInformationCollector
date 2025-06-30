@@ -2,7 +2,6 @@ import os
 import logging
 import yaml
 from flask import Flask, render_template, request, jsonify, send_file, flash, redirect, url_for
-from werkzeug.middleware.proxy_fix import ProxyFix
 from io import StringIO, BytesIO
 import json
 import re
@@ -13,7 +12,6 @@ logging.basicConfig(level=logging.DEBUG)
 # Create Flask app
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "fallback-secret-key-for-development")
-app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 def validate_service_name(service_name):
     """Validate service name - should be non-empty and contain only valid characters"""
@@ -279,4 +277,4 @@ def download_yaml():
         return jsonify({'success': False, 'error': str(e)})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(debug=True)
