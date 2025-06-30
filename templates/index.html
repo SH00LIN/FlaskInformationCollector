@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API YAML Generator</title>
+    <style>
+        .hidden { display: none; }
+        .api-section { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+    </style>
 </head>
 <body>
     <div>
@@ -11,13 +15,13 @@
         <p>Generate YAML configuration files for API testing</p>
 
         <!-- Error Alert -->
-        <div id="error-alert" style="display: none;">
+        <div id="error-alert" class="hidden">
             <strong>Validation Errors:</strong>
             <ul id="error-list"></ul>
         </div>
 
         <!-- Success Alert -->
-        <div id="success-alert" style="display: none;">
+        <div id="success-alert" class="hidden">
             YAML file generated successfully!
         </div>
 
@@ -49,7 +53,7 @@
 
     <!-- API Template (hidden) -->
     <template id="api-template">
-        <div>
+        <div class="api-section">
             <hr>
             <h4>API <span class="api-number">1</span></h4>
             <button type="button" class="remove-api-btn">Remove</button>

@@ -29,15 +29,20 @@ class APIFormManager {
         // Event delegation for dynamic elements
         document.getElementById('apis-container').addEventListener('click', (e) => {
             if (e.target.classList.contains('remove-api-btn') || e.target.closest('.remove-api-btn')) {
-                this.removeAPI(e.target.closest('.api-section'));
+                const apiSection = e.target.closest('.api-section');
+                if (apiSection) this.removeAPI(apiSection);
             } else if (e.target.classList.contains('add-header-btn') || e.target.closest('.add-header-btn')) {
-                this.addHeader(e.target.closest('.api-section'));
+                const apiSection = e.target.closest('.api-section');
+                if (apiSection) this.addHeader(apiSection);
             } else if (e.target.classList.contains('remove-header-btn') || e.target.closest('.remove-header-btn')) {
-                this.removeHeader(e.target.closest('.header-item'));
+                const headerItem = e.target.closest('.header-item');
+                if (headerItem) this.removeHeader(headerItem);
             } else if (e.target.classList.contains('add-extractor-btn') || e.target.closest('.add-extractor-btn')) {
-                this.addExtractor(e.target.closest('.api-section'));
+                const apiSection = e.target.closest('.api-section');
+                if (apiSection) this.addExtractor(apiSection);
             } else if (e.target.classList.contains('remove-extractor-btn') || e.target.closest('.remove-extractor-btn')) {
-                this.removeExtractor(e.target.closest('.extractor-item'));
+                const extractorItem = e.target.closest('.extractor-item');
+                if (extractorItem) this.removeExtractor(extractorItem);
             }
         });
     }
@@ -84,9 +89,12 @@ class APIFormManager {
 
     addHeader(apiSection) {
         const template = document.getElementById('header-template');
+        if (!template) return;
         const clone = template.content.cloneNode(true);
         const headersContainer = apiSection.querySelector('.headers-container');
-        headersContainer.appendChild(clone);
+        if (headersContainer) {
+            headersContainer.appendChild(clone);
+        }
     }
 
     removeHeader(headerItem) {
@@ -95,9 +103,12 @@ class APIFormManager {
 
     addExtractor(apiSection) {
         const template = document.getElementById('extractor-template');
+        if (!template) return;
         const clone = template.content.cloneNode(true);
         const extractorsContainer = apiSection.querySelector('.extractors-container');
-        extractorsContainer.appendChild(clone);
+        if (extractorsContainer) {
+            extractorsContainer.appendChild(clone);
+        }
     }
 
     removeExtractor(extractorItem) {
@@ -239,24 +250,24 @@ class APIFormManager {
             errorList.appendChild(li);
         });
         
-        errorAlert.style.display = 'block';
+        errorAlert.classList.remove('hidden');
         errorAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     showSuccess() {
         const successAlert = document.getElementById('success-alert');
-        successAlert.style.display = 'block';
+        successAlert.classList.remove('hidden');
         successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         
         // Hide success message after 5 seconds
         setTimeout(() => {
-            successAlert.style.display = 'none';
+            successAlert.classList.add('hidden');
         }, 5000);
     }
 
     hideAlerts() {
-        document.getElementById('error-alert').style.display = 'none';
-        document.getElementById('success-alert').style.display = 'none';
+        document.getElementById('error-alert').classList.add('hidden');
+        document.getElementById('success-alert').classList.add('hidden');
     }
 }
 
