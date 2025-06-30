@@ -239,24 +239,24 @@ class APIFormManager {
             errorList.appendChild(li);
         });
         
-        errorAlert.classList.remove('hidden');
+        errorAlert.style.display = 'block';
         errorAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     showSuccess() {
         const successAlert = document.getElementById('success-alert');
-        successAlert.classList.remove('hidden');
+        successAlert.style.display = 'block';
         successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         
         // Hide success message after 5 seconds
         setTimeout(() => {
-            successAlert.classList.add('hidden');
+            successAlert.style.display = 'none';
         }, 5000);
     }
 
     hideAlerts() {
-        document.getElementById('error-alert').classList.add('hidden');
-        document.getElementById('success-alert').classList.add('hidden');
+        document.getElementById('error-alert').style.display = 'none';
+        document.getElementById('success-alert').style.display = 'none';
     }
 }
 

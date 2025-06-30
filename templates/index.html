@@ -4,146 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API YAML Generator</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.4; background-color: white; color: black; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .card { border: 1px solid black; padding: 20px; margin-bottom: 20px; background-color: white; }
-        .header { background-color: #f0f0f0; padding: 15px; margin: -20px -20px 20px -20px; border-bottom: 1px solid black; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: black; }
-        input, textarea, select { width: 100%; padding: 8px; border: 1px solid black; box-sizing: border-box; background-color: white; color: black; }
-        button { padding: 8px 15px; margin: 5px 5px 5px 0; cursor: pointer; border: 1px solid black; background-color: white; color: black; }
-        button:hover { background-color: #f0f0f0; }
-        .btn-primary { background-color: black; color: white; }
-        .btn-primary:hover { background-color: #333; }
-        .alert { padding: 15px; margin-bottom: 20px; border: 1px solid black; }
-        .alert-danger { background-color: #f0f0f0; color: black; }
-        .alert-success { background-color: #f0f0f0; color: black; }
-        .hidden { display: none; }
-        .row { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-end; }
-        .row > div { flex: 1; }
-        .text-right { text-align: right; }
-        .api-section { border-left: 4px solid black; }
-        .required { color: black; font-weight: bold; }
-        .form-text { font-size: 0.9em; color: #666; margin-top: 5px; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .headers-container, .extractors-container { min-height: 20px; }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="header">
-                <h1>API YAML Configuration Generator</h1>
-                <p>Generate YAML configuration files for API testing</p>
-            </div>
+    <div>
+        <h1>API YAML Configuration Generator</h1>
+        <p>Generate YAML configuration files for API testing</p>
 
-            <!-- Error Alert -->
-            <div id="error-alert" class="alert alert-danger hidden">
-                <strong>Validation Errors:</strong>
-                <ul id="error-list"></ul>
-            </div>
-
-            <!-- Success Alert -->
-            <div id="success-alert" class="alert alert-success hidden">
-                YAML file generated successfully!
-            </div>
-
-            <form id="yaml-form">
-                <!-- Service Name -->
-                <div class="form-group">
-                    <label for="service-name">Service Name <span class="required">*</span></label>
-                    <input type="text" id="service-name" name="service_name" placeholder="Enter service name" required>
-                    <div class="form-text">This will be used as the YAML filename (e.g., service-name.yaml)</div>
-                </div>
-
-                <!-- APIs Section -->
-                <div class="form-group">
-                    <div class="section-header">
-                        <h3>APIs</h3>
-                        <button type="button" class="btn-secondary" id="add-api-btn">Add API</button>
-                    </div>
-                    
-                    <div id="apis-container">
-                        <!-- API sections will be dynamically added here -->
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="text-right">
-                    <button type="button" class="btn-outline btn-secondary" id="reset-form-btn">Reset Form</button>
-                    <button type="submit" class="btn-primary" id="generate-yaml-btn">Generate YAML</button>
-                </div>
-            </form>
+        <!-- Error Alert -->
+        <div id="error-alert" style="display: none;">
+            <strong>Validation Errors:</strong>
+            <ul id="error-list"></ul>
         </div>
+
+        <!-- Success Alert -->
+        <div id="success-alert" style="display: none;">
+            YAML file generated successfully!
+        </div>
+
+        <form id="yaml-form">
+            <!-- Service Name -->
+            <div>
+                <label for="service-name">Service Name *</label><br>
+                <input type="text" id="service-name" name="service_name" placeholder="Enter service name" required>
+                <p>This will be used as the YAML filename (e.g., service-name.yaml)</p>
+            </div>
+
+            <!-- APIs Section -->
+            <div>
+                <h3>APIs</h3>
+                <button type="button" id="add-api-btn">Add API</button>
+                
+                <div id="apis-container">
+                    <!-- API sections will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div>
+                <button type="button" id="reset-form-btn">Reset Form</button>
+                <button type="submit" id="generate-yaml-btn">Generate YAML</button>
+            </div>
+        </form>
     </div>
 
     <!-- API Template (hidden) -->
     <template id="api-template">
-        <div class="api-section card">
-            <div class="section-header">
-                <h4>API <span class="api-number">1</span></h4>
-                <button type="button" class="btn-outline btn-danger remove-api-btn">Remove</button>
-            </div>
+        <div>
+            <hr>
+            <h4>API <span class="api-number">1</span></h4>
+            <button type="button" class="remove-api-btn">Remove</button>
 
-            <div class="row">
-                <div>
-                    <label>API Name <span class="required">*</span></label>
-                    <input type="text" class="api-name" placeholder="Enter API name" required>
-                </div>
-                <div>
-                    <label>Method <span class="required">*</span></label>
-                    <select class="api-method" required>
-                        <option value="GET">GET</option>
-                        <option value="POST">POST</option>
-                        <option value="PUT">PUT</option>
-                        <option value="DELETE">DELETE</option>
-                        <option value="PATCH">PATCH</option>
-                        <option value="HEAD">HEAD</option>
-                        <option value="OPTIONS">OPTIONS</option>
-                    </select>
-                </div>
-            </div>
+            <p>
+                <label>API Name *</label><br>
+                <input type="text" class="api-name" placeholder="Enter API name" required>
+            </p>
 
-            <div class="form-group">
-                <label>Full URL <span class="required">*</span></label>
+            <p>
+                <label>Method *</label><br>
+                <select class="api-method" required>
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="DELETE">DELETE</option>
+                    <option value="PATCH">PATCH</option>
+                    <option value="HEAD">HEAD</option>
+                    <option value="OPTIONS">OPTIONS</option>
+                </select>
+            </p>
+
+            <p>
+                <label>Full URL *</label><br>
                 <input type="url" class="api-url" placeholder="https://api.example.com/endpoint" required>
-            </div>
+            </p>
 
-            <div class="row">
-                <div>
-                    <label>Status Code</label>
-                    <input type="number" class="api-status-code" value="200" min="100" max="599" required>
-                </div>
-                <div>
-                    <label>Repeat</label>
-                    <input type="number" class="api-repeat" value="1" min="1" required>
-                </div>
-            </div>
+            <p>
+                <label>Status Code</label><br>
+                <input type="number" class="api-status-code" value="200" min="100" max="599" required>
+            </p>
 
-            <div class="form-group">
-                <label>Payload</label>
-                <textarea class="api-payload" rows="3" placeholder="JSON, XML, or text payload (optional)"></textarea>
-                <div class="form-text">Leave empty for GET requests or when no payload is needed</div>
-            </div>
+            <p>
+                <label>Repeat</label><br>
+                <input type="number" class="api-repeat" value="1" min="1" required>
+            </p>
+
+            <p>
+                <label>Payload</label><br>
+                <textarea class="api-payload" rows="3" placeholder="JSON, XML, or text payload (optional)"></textarea><br>
+                <small>Leave empty for GET requests or when no payload is needed</small>
+            </p>
 
             <!-- Headers Section -->
-            <div class="form-group">
-                <div class="section-header">
-                    <h5>Headers</h5>
-                    <button type="button" class="btn-outline btn-secondary add-header-btn">Add Header</button>
-                </div>
+            <div>
+                <h5>Headers</h5>
+                <button type="button" class="add-header-btn">Add Header</button>
                 <div class="headers-container">
                     <!-- Headers will be added here -->
                 </div>
             </div>
 
             <!-- Extractors Section -->
-            <div class="form-group">
-                <div class="section-header">
-                    <h5>Extract Parameters</h5>
-                    <button type="button" class="btn-outline btn-secondary add-extractor-btn">Add Extractor</button>
-                </div>
+            <div>
+                <h5>Extract Parameters</h5>
+                <button type="button" class="add-extractor-btn">Add Extractor</button>
                 <div class="extractors-container">
                     <!-- Extractors will be added here -->
                 </div>
@@ -153,37 +115,27 @@
 
     <!-- Header Template (hidden) -->
     <template id="header-template">
-        <div class="header-item row">
-            <div>
-                <input type="text" class="header-key" placeholder="Header key">
-            </div>
-            <div>
-                <input type="text" class="header-value" placeholder="Header value">
-            </div>
-            <div style="flex: 0 0 100px;">
-                <button type="button" class="btn-outline btn-danger remove-header-btn">Remove</button>
-            </div>
+        <div class="header-item">
+            <p>
+                Header Key: <input type="text" class="header-key" placeholder="Header key">
+                Header Value: <input type="text" class="header-value" placeholder="Header value">
+                <button type="button" class="remove-header-btn">Remove</button>
+            </p>
         </div>
     </template>
 
     <!-- Extractor Template (hidden) -->
     <template id="extractor-template">
-        <div class="extractor-item row">
-            <div style="flex: 0 0 100px;">
-                <select class="extractor-type">
+        <div class="extractor-item">
+            <p>
+                Type: <select class="extractor-type">
                     <option value="header">Header</option>
                     <option value="body">Body</option>
                 </select>
-            </div>
-            <div>
-                <input type="text" class="extractor-key" placeholder="Key">
-            </div>
-            <div>
-                <input type="text" class="extractor-value" placeholder="Value">
-            </div>
-            <div style="flex: 0 0 100px;">
-                <button type="button" class="btn-outline btn-danger remove-extractor-btn">Remove</button>
-            </div>
+                Key: <input type="text" class="extractor-key" placeholder="Key">
+                Value: <input type="text" class="extractor-value" placeholder="Value">
+                <button type="button" class="remove-extractor-btn">Remove</button>
+            </p>
         </div>
     </template>
 
