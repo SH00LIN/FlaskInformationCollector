@@ -173,7 +173,7 @@ class APIFormManager {
             // Show loading state
             const generateBtn = document.getElementById('generate-yaml-btn');
             const originalText = generateBtn.innerHTML;
-            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Generating...';
+            generateBtn.innerHTML = 'Generating...';
             generateBtn.disabled = true;
             
             // Hide previous alerts
@@ -210,7 +210,7 @@ class APIFormManager {
         } finally {
             // Reset button state
             const generateBtn = document.getElementById('generate-yaml-btn');
-            generateBtn.innerHTML = '<i class="fas fa-download me-1"></i>Generate YAML';
+            generateBtn.innerHTML = 'Generate YAML';
             generateBtn.disabled = false;
         }
     }
